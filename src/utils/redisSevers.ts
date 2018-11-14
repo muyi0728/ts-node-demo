@@ -7,7 +7,7 @@ import {redisClient} from '../config/redisConfig'
  */
 const setDataToRedis = (key: string, value: any): Promise<any> => {
     return new Promise((resolve, reject) => {
-        redisClient.set(`node:xiuba:${key}`, JSON.stringify(value), (error, response) => {
+        redisClient.set(`node:ts:${key}`, JSON.stringify(value), (error, response) => {
             if (error) {
                 reject(error);
             } else {
@@ -22,7 +22,7 @@ const setDataToRedis = (key: string, value: any): Promise<any> => {
  */
 const getDataFromRedis = (key: string) => {
     return new Promise((resolve, reject) => {
-        redisClient.get(`node:xiuba:${key}`, (error, response) => {
+        redisClient.get(`node:ts:${key}`, (error, response) => {
             if (error) {
                 reject(error);
             } else {
@@ -37,7 +37,7 @@ const getDataFromRedis = (key: string) => {
  */
 const isExistsFromRedis = (key: string) => {
     return new Promise((resolve, reject) => {
-        redisClient.exists(`node:xiuba:${key}`, (error, response) => {
+        redisClient.exists(`node:ts:${key}`, (error, response) => {
             if (error) {
                 reject(error);
             } else {
@@ -53,7 +53,7 @@ const isExistsFromRedis = (key: string) => {
  */
 const setExpireToRedis = (key: string, milliseconds: number) => {
     return new Promise((resolve, reject) => {
-        redisClient.pexpire(`node:xiuba:${key}`, milliseconds, (error, response) => {
+        redisClient.pexpire(`node:ts:${key}`, milliseconds, (error, response) => {
             if (error) {
                 reject(error);
             } else {
@@ -63,15 +63,4 @@ const setExpireToRedis = (key: string, milliseconds: number) => {
     })
 };
 
-/*
-* 扩展redisService类以方便调用
-* @export
-* @class RedisSevers
-* */
-
-export default class RedisSevers {
-    readonly setDataToRedis = setDataToRedis;
-    readonly getDataFromRedis = getDataFromRedis;
-    readonly isExistsFromRedis = isExistsFromRedis;
-    readonly setExpireToRedis = setExpireToRedis;
-}
+export {setDataToRedis, getDataFromRedis, isExistsFromRedis, setExpireToRedis}

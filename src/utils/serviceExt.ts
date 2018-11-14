@@ -1,5 +1,6 @@
 import {createResData, createToken} from './common'
 import {httpPost, httpGet} from '../config/httpConfig'
+import {setDataToRedis, getDataFromRedis, isExistsFromRedis, setExpireToRedis} from './redisSevers'
 
 /**
  * 扩展Service类以方便调用
@@ -28,4 +29,25 @@ export default class ServiceExt {
      * http get
      */
     readonly httpGet = httpGet;
+
+    /**
+     *  redis set
+     */
+    readonly setDataToRedis = setDataToRedis;
+
+    /**
+     *  redis get
+     */
+    readonly getDataFromRedis = getDataFromRedis;
+
+    /**
+     *  redis get has key
+     */
+    readonly isExistsFromRedis = isExistsFromRedis;
+
+
+    /**
+     *  redis set expire time
+     */
+    readonly setExpireToRedis = setExpireToRedis;
 }
