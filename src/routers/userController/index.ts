@@ -7,6 +7,7 @@ import RedisSevers from '../../utils/redisSevers'
 @Controller('/users')
 export class UserController extends ServiceExt {
     @Get("/user")
+
     async getAll(@Body() user: object): Promise<any> {
         const data = await this.httpGet('/user/member/getAllMemberFeeJson');
         const a = this.createToken({id: 444, phone:465465})
