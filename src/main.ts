@@ -10,7 +10,8 @@ import connectRedis from 'connect-redis'
 import envConfig from './config/envConfig'
 import {UNNECESSARY_AUTH_ROUTERS} from './config/authConfig'
 import controllers from './routers'
-
+import {NameCorrectionInterceptor } from './interceptor'
+import {LoggingMiddleware} from "./middlewares";
 const RedisStore = connectRedis(session);
 
 // 创建 express 实例
@@ -61,7 +62,16 @@ app.use((err: UnauthorizedError, req: Request, res: Response, next: NextFunction
 
 useExpressServer(app, {
     routePrefix: 'api',
-    controllers: [...controllers]
+    controllers: [...controllers],
+    interceptors: [NameCorrectionInterceptor],
+    middlewares: [LoggingMiddleware],
+    defaults: {
+        nullResultCode: 404,
+        undefinedResultCode: 204,
+        paramOptions: {
+            required: false
+        }
+    }
 });
 
 // 监听服务端口
